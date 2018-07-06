@@ -1,0 +1,25 @@
+body{
+    padding: 0;
+    margin: 5px 0 0;
+    overflow: hidden;
+}
+
+.info{
+    font-family: monospace;
+    position: absolute;
+    bottom: 0;
+    background: #eeeeee;
+    height: 20px;
+    padding: 2px;
+    left: 0;
+    right: 0;
+}
+
+.info label{
+    font-weight: bold;
+}
+
+.buttons{
+    padding: 2px;
+    height: 25px;
+}
