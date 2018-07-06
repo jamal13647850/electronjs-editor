@@ -7,15 +7,81 @@ let hasWriteAccess;
 const { remote} = require('electron');
 const { Menu , dialog} = remote;
 const fs = require('fs');
+const path = require('path');
+
 
 const handleNewButton=()=>{
-    console.log('new');
+    if(false){
+
+    }
+    else{
+        window.open(`file://${__dirname}/index.html`)
+    }
 };
 const handleOpenButton=()=>{
-
+    dialog.showOpenDialog({properties : ['OpenFile']} , (filename)=>{
+        //path.baseName(filename.toString());
+        //handleDocumentChange(filename.toString());
+        onChosenFileToOpen(filename.toString());
+    });
 };
+
+const onChosenFileToOpen = (theFileEntry)=>{
+    setFile(theFileEntry ,false);
+    readFileIntoEditor(theFileEntry);
+};
+
+const setFile = (theFileEntry , isWritable)=>{
+    fileEntry = theFileEntry;
+    hasWriteAccess =isWritable;
+};
+
+const readFileIntoEditor = (theFileEntry)=>{
+    fs.readFile(theFileEntry,(err,data)=>{
+        if(err){
+
+        }
+        else{
+            handleDocumentChange(theFileEntry);
+            editor.setValue(String(data));
+        }
+    })
+};
+
 const handleSaveButton=()=>{
 
+};
+
+
+const newFile = ()=>{
+    fileEntry = null;
+    hasWriteAccess = false;
+    handleDocumentChange(null);
+};
+
+const handleDocumentChange = (title)=>{
+    let mode = "javascript";
+    let modeName = "javascript";
+    if(title){
+        document.getElementById('title').innerHTML = title
+        if(path.extname(title)=== '.json'){
+            mode = {name:'javascript',json:true};
+            modeName = "javascript (JSON)";
+        }
+        else if(path.extname(title)=== '.html'){
+            mode = 'htmlmixed';
+            modeName = "HTML";
+        }
+        else if(path.extname(title)=== '.css'){
+            mode = 'css';
+            modeName = "CSS";
+        }
+    }
+    else{
+        document.getElementById('title').innerHTML = "[no document loaded]"
+    }
+    editor.setOption("mode" , mode);
+    document.getElementById("mode").innerHTML = modeName;
 };
 
 const initContextMenu = ()=>{
@@ -27,6 +93,16 @@ const initContextMenu = ()=>{
                     label : "New File",
                     accelerator : 'CmdOrCtrl+N',
                     click(){handleNewButton()}
+                },
+                {
+                    label : "Open File",
+                    accelerator : 'CmdOrCtrl+P',
+                    click(){handleOpenButton()}
+                },
+                {
+                    label : "Save File",
+                    accelerator : 'CmdOrCtrl+S',
+                    click(){handleSaveButton()}
                 },
                 {
                    role:'quit'
@@ -98,4 +174,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             theme : 'lesser-dark'
         }
     )
+
+
+    newFile();
 });
