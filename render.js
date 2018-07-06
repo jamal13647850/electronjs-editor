@@ -60,6 +60,23 @@ const initContextMenu = ()=>{
         }
     ]);
     Menu.setApplicationMenu(menu);
+
+    let contextmenu = Menu.buildFromTemplate([
+
+        {
+            label : 'File',
+            submenu : [
+                {role : 'copy'},
+                {role : 'cut'},
+                {role : 'paste'}
+            ]
+        }
+    ]);
+
+    window.addEventListener('contextmenu',(event)=>{
+        event.preventDefault();
+        contextmenu.popup(remote.getCurrentWindow(),event.x,event.y)
+    },false)
 };
 
 document.addEventListener('DOMContentLoaded',()=>{
