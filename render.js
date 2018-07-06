@@ -13,6 +13,7 @@ const path = require('path');
 const handleNewButton=()=>{
     if(true){
         newFile();
+        editor.setValue("");
     }
     else{
         window.open(`file://${__dirname}/index.html`)
