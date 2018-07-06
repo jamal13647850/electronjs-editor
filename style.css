@@ -4,6 +4,18 @@ body{
     overflow: hidden;
 }
 
+#editor{
+    position: absolute;
+    top:35px;
+    bottom: 24px;
+    right: 0;
+    left: 0;
+    background: #262626;
+}
+
+.CodeMirror{
+    height: 100% !important;
+}
 .info{
     font-family: monospace;
     position: absolute;
@@ -23,3 +35,4 @@ body{
     padding: 2px;
     height: 25px;
 }
+
