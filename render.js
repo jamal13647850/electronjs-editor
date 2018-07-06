@@ -11,8 +11,8 @@ const path = require('path');
 
 
 const handleNewButton=()=>{
-    if(false){
-
+    if(true){
+        newFile();
     }
     else{
         window.open(`file://${__dirname}/index.html`)
@@ -22,7 +22,10 @@ const handleOpenButton=()=>{
     dialog.showOpenDialog({properties : ['OpenFile']} , (filename)=>{
         //path.baseName(filename.toString());
         //handleDocumentChange(filename.toString());
-        onChosenFileToOpen(filename.toString());
+        if(filename){
+            onChosenFileToOpen(filename.toString());
+        }
+
     });
 };
 
@@ -49,9 +52,33 @@ const readFileIntoEditor = (theFileEntry)=>{
 };
 
 const handleSaveButton=()=>{
-
+    if(fileEntry && hasWriteAccess){
+        writeEditorToFile(fileEntry);
+    }
+    else if (filename){
+        dialog.showSaveDialog(filename=>{
+            onChosenFileToSave(filename);
+        })
+    }
 };
 
+const onChosenFileToSave = theFileEntry=>{
+    setFile(theFileEntry,true);
+    writeEditorToFile(theFileEntry);
+}
+
+const writeEditorToFile = theFileEntry =>{
+  fs.writeFile(theFileEntry,editor.getValue(),err=>{
+      if(err){
+          console.log(err);
+          return;
+      }
+      else{
+          handleDocumentChange(theFileEntry);
+          console.log("Write completed.");
+      }
+  });
+};
 
 const newFile = ()=>{
     fileEntry = null;
