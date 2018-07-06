@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "codemirror": "^5.39.0"
+    "codemirror": "^5.39.0",
+    "node-notifier": "^5.2.1"
   }
 }

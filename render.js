@@ -8,6 +8,8 @@ const { remote} = require('electron');
 const { Menu , dialog} = remote;
 const fs = require('fs');
 const path = require('path');
+const notifier = require('node-notifier');
+
 
 
 const handleNewButton=()=>{
@@ -201,8 +203,25 @@ document.addEventListener('DOMContentLoaded',()=>{
             lineNumbers: true,
             theme : 'lesser-dark'
         }
-    )
+    );
 
 
     newFile();
+
+    initNotification();
 });
+
+const initNotification = ()=>{
+    notifier.notify({
+      title : 'My test notificatio',
+      message : 'hello jamal',
+      icon : path.join(__dirname,'/img/32X32/file_edit.png'),
+      wait : true
+
+  },(err,res)=>{
+        console.log(err);
+    });
+    notifier.on('click',(notifierObject,options)=>{
+        console.log("click",notifierObject,options)
+    })
+};

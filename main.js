@@ -26,6 +26,7 @@ app.on('ready',()=>{
 
     tray.on('click',()=>{
         mainWindow.isMinimized()?mainWindow.restore():mainWindow.minimize();
-    })
+    });
+
 
 });
