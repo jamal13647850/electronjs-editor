@@ -11,7 +11,6 @@ const path = require('path');
 const notifier = require('node-notifier');
 
 
-
 const handleNewButton=()=>{
     if(true){
         newFile();
@@ -209,6 +208,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     newFile();
 
     initNotification();
+
+    window.localStorage.setItem('name','jamal');
+    console.log(window.localStorage.getItem('name'));
+    window.localStorage.removeItem('name');
 });
 
 const initNotification = ()=>{
@@ -224,4 +227,5 @@ const initNotification = ()=>{
     notifier.on('click',(notifierObject,options)=>{
         console.log("click",notifierObject,options)
     })
+
 };
