@@ -10,7 +10,7 @@ app.on('ready',()=>{
     mainWindow = new BrowserWindow({
         width : 800,
         height : 600,
-        webPreferences :{ session : 'partition1' }
+
     });
     mainWindow.loadURL(`file://${__dirname}/index.html`)
 
@@ -21,7 +21,8 @@ app.on('ready',()=>{
 
     secondWindow = new BrowserWindow({
         width : 800,
-        height : 600
+        height : 600,
+        webPreferences :{ session : partition1 }
     });
     secondWindow.loadURL(`file://${__dirname}/index.html`)
 
